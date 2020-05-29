@@ -1,0 +1,30 @@
+from flask import Flask, request, redirect, url_for, render_template
+from modules import ssidmod
+app = Flask(__name__)
+
+@app.route("/ssid")
+@app.route('/ssid/<status>')
+def ssid(status=None):
+    return render_template('ssidform.html', status=status)
+
+@app.route("/ssidchanger")
+def ssidchanger():
+    ssid = request.args.get('ssid' , default = '0' , type = str)
+    passwd = request.args.get('passwd' , default = '0' , type = str )
+    passwdc = request.args.get('passwdc' , default = '0' , type = str )
+    sts = ssidmod.addnewssid(ssid , passwd, passwdc)
+
+    if(sts == 0):
+        return redirect(url_for('ssid', status='ok'))
+    elif(sts == 1):
+        return redirect(url_for('ssid', status='failLen'))     
+    elif(sts == 2):
+        return redirect(url_for('ssid', status='failSsid'))     
+    elif(sts == 3):
+        return redirect(url_for('ssid', status='failComp'))
+    else:
+        return redirect(url_for('ssid', status='error'))
+        
+
+if __name__ == "__main__":
+    app.run(host='HOSTNAME')

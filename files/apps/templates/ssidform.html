@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>SSID Changer</h2>
+{% if status|string() == "ok" %}
+<h4>SSID successfull added...</h4>
+{% elif  status|string() == "failLen" %}
+<h4>Fail to set ssid, password must be 8.63 characters...</h4>
+{% elif  status|string() == "failComp" %}
+<h4>The passwords dont match, try again...</h4>
+{% elif status|string() == "error" %}
+<h4>Fail to set ssid, unkown error...</h4>
+{% endif %}
+<form action="/ssidchanger">
+  <label for="ssid">New ssid:</label><br>
+  <input type="text" id="ssid" name="ssid" value="ssid"><br><br>
+  <label for="passwd">Password:</label><br>
+  <input type="password" id="passwd" name="passwd" value="password"><br>
+  <label for="passwd">Confirm password:</label><br>
+  <input type="password" id="passwdc" name="passwdc" value="passwordc"><br><br>
+  <input type="submit" value="Submit">
+</form> 
+
+
+</body>
+</html>
