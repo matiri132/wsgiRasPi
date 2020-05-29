@@ -39,13 +39,13 @@ case $2 in
 		#Preparing config files
 		cp ${WD}/files/apps/ssidapp.py.bk ${WD}/ssidapp.py
 		sed -i "s/HOSTNAME/${HOST_NAME}/g" ${WD}/ssidapp.py
-		cp ${WD}/files//data/ssidappini.bk ${WD}/ssidappini
+		cp ${WD}/files/data/ssidappini.bk ${WD}/ssidappini
 		sed -i "s/APPDIR/\/home\/${H_USER}\/webapps/g" ${WD}/ssidappini
 		sed -i "s/APPNAME/${APPNAME}/g" ${WD}/ssidappini
 		cp ${WD}/files/data/ssidservice.bk ${WD}/ssidservice
 		sed -i "s/APPNAME/${APPNAME}/g" ${WD}/ssidservice
 		sed -i "s/APPDIR/\/home\/${H_USER}\/webapps/g" ${WD}/ssidservice
-		cp ${WD}/files//data/ssidnginx.bk ${WD}/ssidnginx
+		cp ${WD}/files/data/ssidnginx.bk ${WD}/ssidnginx
 		sed -i "s/DOMAINNAME/${DOMAINNAME}/g" ${WD}/ssidnginx
 		sed -i "s/APPNAME/${APPNAME}/g" ${WD}/ssidnginx
 
@@ -71,8 +71,8 @@ case $2 in
 			chmod 770 /etc/wpa_supplicant/wpa_supplicant.conf
 			cp ${WD}/ssidappini ${APPDIR}/${APPNAME}.ini
 			cp ${WD}/ssidapp.py ${APPDIR}/ssidapp.py
-			cp ${WD}/files/modules/apps/ssidmod.py ${APPDIR}/modules/ssidmod.py
-			cp ${WD}/files/templates/apps/ssidform.html ${APPDIR}/templates/ssidform.html
+			cp ${WD}/files/apps/modules/ssidmod.py ${APPDIR}/modules/ssidmod.py
+			cp ${WD}/files/apps/templates/ssidform.html ${APPDIR}/templates/ssidform.html
 			sudo chown www-data:www-data ${APPDIR}
 			#Creating SERVICE
 			cp ${WD}/ssidservice /etc/systemd/system/${APPNAME}.service
@@ -106,7 +106,6 @@ case $2 in
 		echo "Removing service..."
 		systemctl stop ${APPNAME}
 		systemctl disable ${APPNAME}
-		rm	/etc/systemd/system/multi-user.target.wants/${APPNAME}.service
 		rm /etc/systemd/system/${APPNAME}.service
 		echo "Remove socket..."
 		rm /tmp/${APPNAME}.sock
