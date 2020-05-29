@@ -80,7 +80,10 @@ case $2 in
 			systemctl start ${APPNAME}
 
 			#Configure NGINX
+			if [ -e /etc/nginx/sites-enabled/default ]
+			then
 			rm /etc/nginx/sites-enabled/default
+			fi
 			cp ${WD}/ssidnginx /etc/nginx/sites-available/${APPNAME}
 			ln -s /etc/nginx/sites-available/${APPNAME} /etc/nginx/sites-enabled/
 			if [ -x "$(command -v ufw))" ]
